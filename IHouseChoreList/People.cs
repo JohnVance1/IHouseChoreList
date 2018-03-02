@@ -91,7 +91,7 @@ namespace IHouseChoreList
             {
                 read = new StreamReader("ChoresDone.txt");
 
-                for(int i = 0; i < person.Chores.Count; i++)
+                for(int i = 0; i <= person.Chores.Count - 1; i++)
                 {
                     person.Chores.RemoveAt(i);
 
@@ -105,13 +105,10 @@ namespace IHouseChoreList
                     {
                         string[] data = read.ReadLine().Split(',');
 
-                        for (int i = 0; i < data.Length; i++)
-                        {
-                            if (int.TryParse(data[i], out int output))
-                            {                                
-                                person.Chores.Add(output);
-
-                            }
+                        for (int i = 0; i < data.Length - 1; i++)
+                        {                                                          
+                            person.Chores.Add(int.Parse(data[i]));
+                            
 
                         }
 
@@ -134,6 +131,7 @@ namespace IHouseChoreList
                     read.Close();
 
                 }
+                
 
             }
         }
@@ -152,31 +150,29 @@ namespace IHouseChoreList
                 read = new StreamReader("ChoresDone.txt");
                 string line = null;
                 int[] adding;
+                //member.ChoresDone(member);
                 //string info = null;
                 while ((line = read.ReadLine()) != null)
-                {
+                {                                            
                     if (line == member.Name)
                     {
                         string[] data = read.ReadLine().Split(',');
-
-                        for (int i = 0; i < data.Length; i++)
+                    
+                        for (int i = 0; i < data.Length - 1; i++)
                         {
-                            if (int.TryParse(data[i], out int output))
-                            {
-                                adding = new int[data.Length + 1];
-                                adding[i] = output;
-                                adding[adding.Length - 1] = rand;
-
-                            }
-
+                            member.Chores.Add(int.Parse(data[i]));
+                                                                
                         }
-
+                        member.Chores.Add(rand);
+                    
                     }
+
+                    
 
                 }
 
-
             }
+
             catch(Exception e)
             {
                 Console.WriteLine("AssignChore : Error reading to file: " + e.Message);
@@ -185,14 +181,15 @@ namespace IHouseChoreList
 
             finally
             {
-                if(write != null)
+                if(read != null)
                 {
-                    write.Close();
+                    read.Close();
 
                 }
 
             }
 
+            #region Comments
             //if (!member.Chores.Contains(rand))
             //{
             //    member.Chores.Add(rand);
@@ -222,47 +219,50 @@ namespace IHouseChoreList
             //    return null;
 
             //}
+            #endregion
 
         }
 
-        public void Save(List<People> people)
-        {
-            try
-            {
-                write = new StreamWriter("ChoresDone.txt");
-                foreach (People element in people)
-                {
-                    write.WriteLine(element.Name);
+        #region More Comments
+        //public void Save(List<People> people)
+        //{
+        //    try
+        //    {
+        //        write = new StreamWriter("ChoresDone.txt");
+        //        foreach (People element in people)
+        //        {
+        //            write.WriteLine(element.Name);
 
-                    for (int i = 0; i < element.Chores.Count; i++)
-                    {
-                        element.WeeksChore += element.Chores[i] + ",";
+        //            for (int i = 0; i < element.Chores.Count; i++)
+        //            {
+        //                element.WeeksChore += element.Chores[i] + ",";
 
-                    }
+        //            }
 
-                    write.WriteLine(element.WeeksChore);
-                }
+        //            write.WriteLine(element.WeeksChore);
+        //        }
 
-            }
+        //    }
 
-            catch (Exception e)
-            {
-                Console.WriteLine("Error writing to file: " + e.Message);
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("Error writing to file: " + e.Message);
 
-            }
+        //    }
 
-            finally
-            {
-                if (write != null)
-                {
-                    write.Close();
+        //    finally
+        //    {
+        //        if (write != null)
+        //        {
+        //            write.Close();
 
-                }
+        //        }
 
-            }
+        //    }
 
 
-        }
+        //}
+        #endregion
 
         public override string ToString()
         {

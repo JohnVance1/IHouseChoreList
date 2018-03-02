@@ -11,12 +11,19 @@ namespace IHouseChoreList
     {
         static void Main(string[] args)
         {
+
+            #region Fields
             List<People> members = new List<People>();
             List<People> weekChores = new List<People>();
-            People people = new People("");
+            StreamWriter write = null;
 
             Random rand = new Random();
             int x;
+            int y = 0;
+            int k = 0;
+            List<int> chosen = new List<int>();
+            #endregion
+
 
             #region All Member Creation
             People _john = new People("John");
@@ -52,7 +59,9 @@ namespace IHouseChoreList
             People _van = new People("Van");
             People _vishvam = new People("Vishvam");
             People _riley = new People("Riley");
+            People _chris = new People("Chris");
             #endregion
+
 
             #region All Members
             members.Add(_john);
@@ -90,55 +99,76 @@ namespace IHouseChoreList
             members.Add(_xy);
             #endregion
 
+
             #region Current Week's Chores
-            weekChores.Add(_dante);
-            weekChores.Add(_sabrina);
-            weekChores.Add(_sierra);
-            weekChores.Add(_austin);
-            weekChores.Add(_janelle);
             weekChores.Add(_gabe);
-            weekChores.Add(_xy);
-            weekChores.Add(_ian);
-            weekChores.Add(_van);
-            weekChores.Add(_paulina);
-            weekChores.Add(_kristine);
-            weekChores.Add(_daniel);
-            weekChores.Add(_thomas);
-            weekChores.Add(_tobin);
-            weekChores.Add(_emmaJ);
-            weekChores.Add(_john);
+            weekChores.Add(_jenna);
+            weekChores.Add(_aaron);
+            weekChores.Add(_vishvam);
+            weekChores.Add(_riley);
+            weekChores.Add(_simran);
+            weekChores.Add(_rose);
+            weekChores.Add(_guada);
+            weekChores.Add(_rachel);
+            weekChores.Add(_dane);
+            weekChores.Add(_lea);
+            weekChores.Add(_jacob);
+            weekChores.Add(_emmaC);
+            weekChores.Add(_casey);
+            weekChores.Add(_konce);
+            weekChores.Add(_evan);
             #endregion
 
+
+            #region Uncommented Code
             // Uncomment to clear all of the members chores 
             // for the new week
             //Clear(members);
 
             // Uncomment to show the chores that people have done before
-            foreach (People element in members)
-            {
-                if (element.Chores != null)
-                {
-                    //Console.WriteLine(element.Chores);
-                    //Console.WriteLine();
-                }
+            //foreach (People element in members)
+            //{
+            //    if (element.Chores != null)
+            //    {
+            //        Console.WriteLine(element.Chores);
+            //        Console.WriteLine();
+            //    }
 
-            }
+            //}
+            #endregion
 
-            // Assigns chore
-            for (int i = 0; i < 16; i++)
-            {
-                x = rand.Next(0, 16);
 
-                if((weekChores[x].Picked == false))
-                {
-                    weekChores[x].AssignChore(weekChores[x], i);
-                    
-                }
-
-            }
+            #region Method Instantiation
+            //Assigns a random chore to everyone
+            RandomChore();
 
             // Saves the chores for who has done what chore
-            people.Save(members);
+            Save(members);
+            #endregion
+
+
+            #region Main Methods
+            // Assigns a random chore
+            void RandomChore()
+            {
+                while (y != 16)
+                {                    
+                    x = rand.Next(0, 16);
+                    weekChores[x].ChoresDone(weekChores[x]);
+
+                    if ((weekChores[x].Picked == false) && (chosen.Contains(x) == false) && (weekChores[x].Chores.Contains(x) == false))
+                    {
+                        weekChores[x].AssignChore(weekChores[x], k);
+                        y++;
+                        chosen.Add(x);
+                        weekChores[x].Picked = true;
+                        k++;
+
+
+                    }
+                    
+                }
+            }
 
             // Clears the past chores that the members have had
             void Clear(List<People> person)
@@ -150,6 +180,47 @@ namespace IHouseChoreList
                 }
 
             }
+
+            void Save(List<People> people)
+            {                
+                try
+                {
+                    write = new StreamWriter("ChoresDone.txt");
+                    foreach (People element in people)
+                    {
+                        write.WriteLine(element.Name);
+
+                        for (int i = 0; i < element.Chores.Count; i++)
+                        {
+                            element.WeeksChore += element.Chores[i] + ",";
+
+                        }
+
+                        write.WriteLine(element.WeeksChore);
+                    }
+
+                }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error writing to file: " + e.Message);
+
+                }
+
+                finally
+                {
+                    if (write != null)
+                    {
+                        write.Close();
+
+                    }
+
+                }
+
+
+            }
+            #endregion
+
 
 
 
