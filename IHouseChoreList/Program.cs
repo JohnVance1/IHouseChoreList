@@ -16,111 +16,108 @@ namespace IHouseChoreList
             List<People> members = new List<People>();
             List<People> weekChores = new List<People>();
             StreamWriter write = null;
+            StreamReader read = null;
+
+            int chores = 16;
 
             Random rand = new Random();
             int x;
-            int y = 0;
+            //int y = 0;
             int k = 0;
             List<int> chosen = new List<int>();
             #endregion
 
 
             #region All Member Creation
-            People _john = new People("John");
             People _gabe = new People("Gabe");
-            People _aaron = new People("Aaron");
-            People _ian = new People("Ian");
-            People _simran = new People("Simran");
-            People _ketaki = new People("Ketaki");
-            People _jenna = new People("Jenna");
-            People _sabrina = new People("Sabrina");
-            People _emmaJ = new People("Emma J");
-            People _xy = new People("Xy");
-            People _rose = new People("Rose");
-            People _rachel = new People("Rachel");
-            People _casey = new People("Casey");
+            People _akif = new People("Akif");
             People _daniel = new People("Daniel");
-            People _lea = new People("Lea");
-            People _austin = new People("Austin");
-            People _dane = new People("Dane");
             People _dante = new People("Dante");
-            People _emmaC = new People("Emma C");
-            People _guada = new People("Guada");
-            People _paulina = new People("Paulina");
+            People _eloy = new People("Eloy");
+            People _grace = new People("Grace");
+            People _harleigh = new People("Harleigh");
             People _jacob = new People("Jacob");
-            People _janelle = new People("Janelle");
-            People _konce = new People("Konce");
-            People _kristine = new People("Kristine");
-            People _ruben = new People("Ruben");
+            People _jessika = new People("Jessika");
+            People _john = new People("John");
+            People _kensey = new People("Kensey");
+            People _leah = new People("Leah");
+            People _marco = new People("Marco");
+            People _mayuri = new People("Mayuri");
+            People _millie = new People("Millie");
+            People _monse = new People("Monse");
+            People _nahum = new People("Nahum");
+            People _paulina = new People("Paulina");
+            People _rachelM = new People("Rachel M");
+            People _rachelR = new People("Rachel R");
+            People _rose = new People("Rose");
+            People _sean = new People("Sean");
             People _sierra = new People("Sierra");
-            People _thomas = new People("Thomas");
-            People _tobin = new People("Tobin");
-            People _evan = new People("Evan");
-            People _van = new People("Van");
-            People _vishvam = new People("Vishvam");
-            People _riley = new People("Riley");
-            People _chris = new People("Chris");
+            People _simran = new People("Simran");
+            People _stanley = new People("Stanley");
+            People _tenyu = new People("Tenyu");
+            People _theo = new People("Theo");
+            People _theresa = new People("Theresa");
+            People _xy = new People("Xy");
+            People _leo = new People("Leo");
+            
             #endregion
 
-
+            
             #region All Members
             members.Add(_john);
-            members.Add(_ian);
+            members.Add(_akif);
             members.Add(_gabe);
             members.Add(_simran);
-            members.Add(_ketaki);
-            members.Add(_riley);
-            members.Add(_rachel);
-            members.Add(_sabrina);
-            members.Add(_aaron);
-            members.Add(_austin);
-            members.Add(_casey);
-            members.Add(_dane);
+            members.Add(_eloy);
+            members.Add(_grace);
+            members.Add(_harleigh);
+            members.Add(_jessika);
+            members.Add(_kensey);
+            members.Add(_leah);
+            members.Add(_marco);
+            members.Add(_mayuri);
             members.Add(_daniel);
             members.Add(_dante);
-            members.Add(_emmaC);
-            members.Add(_emmaJ);
-            members.Add(_evan);
-            members.Add(_guada);
+            members.Add(_millie);
+            members.Add(_monse);
+            members.Add(_nahum);
+            members.Add(_rachelR);
             members.Add(_jacob);
-            members.Add(_janelle);
-            members.Add(_jenna);
-            members.Add(_konce);
-            members.Add(_kristine);
-            members.Add(_lea);
+            members.Add(_rachelM);
+            members.Add(_sean);
+            members.Add(_stanley);
+            members.Add(_tenyu);
+            members.Add(_theo);
             members.Add(_paulina);
             members.Add(_rose);
-            members.Add(_ruben);
+            members.Add(_theresa);
             members.Add(_sierra);
-            members.Add(_thomas);
-            members.Add(_tobin);
-            members.Add(_van);
-            members.Add(_vishvam);
             members.Add(_xy);
+            members.Add(_leo);
             #endregion
 
-
+            // include all members that have chores this week
             #region Current Week's Chores
-            weekChores.Add(_gabe);
-            weekChores.Add(_jenna);
-            weekChores.Add(_aaron);
-            weekChores.Add(_vishvam);
-            weekChores.Add(_riley);
-            weekChores.Add(_simran);
+            weekChores.Add(_theo);
+            weekChores.Add(_xy);
+            weekChores.Add(_marco);
             weekChores.Add(_rose);
-            weekChores.Add(_guada);
-            weekChores.Add(_rachel);
-            weekChores.Add(_dane);
-            weekChores.Add(_lea);
+            weekChores.Add(_nahum);
             weekChores.Add(_jacob);
-            weekChores.Add(_emmaC);
-            weekChores.Add(_casey);
-            weekChores.Add(_konce);
-            weekChores.Add(_evan);
+            weekChores.Add(_kensey);
+            weekChores.Add(_sierra);
+            weekChores.Add(_sean);
+            weekChores.Add(_theresa);
+            weekChores.Add(_daniel);
+            weekChores.Add(_rachelM);
+            weekChores.Add(_stanley);
+            weekChores.Add(_leo);
+            weekChores.Add(_mayuri);
+            weekChores.Add(_dante);
             #endregion
+            
 
-
-            #region Uncommented Code
+            #region Commented Code
             // Uncomment to clear all of the members chores 
             // for the new week
             //Clear(members);
@@ -139,6 +136,11 @@ namespace IHouseChoreList
 
 
             #region Method Instantiation
+            Clear(weekChores);
+
+            // Gets all of the chores already done
+            GetChores();
+
             //Assigns a random chore to everyone
             RandomChore();
 
@@ -151,36 +153,261 @@ namespace IHouseChoreList
             // Assigns a random chore
             void RandomChore()
             {
-                while (y != 16)
-                {                    
-                    x = rand.Next(0, 16);
-                    weekChores[x].ChoresDone(weekChores[x]);
+                List<int> picked = new List<int>();
+                bool y = true;
+                int repeat = 0;
 
-                    if ((weekChores[x].Picked == false) && (chosen.Contains(x) == false) && (weekChores[x].Chores.Contains(x) == false))
+                while (y)
+                {
+                    k = 0;
+                    chosen.Clear();
+
+                    // Adds a chore to each member
+                    while (k != chores)
                     {
-                        weekChores[x].AssignChore(weekChores[x], k);
-                        y++;
-                        chosen.Add(x);
-                        weekChores[x].Picked = true;
-                        k++;
+                        x = rand.Next(0, chores);
 
+                        if (!chosen.Contains(x))
+                        {
+                            AssignChore(weekChores[x], k);
+                            chosen.Add(x);
+                            k++;
+
+                        }
+                        
+                    }
+
+                    // Checks to see if there are any repeats in a list
+                    foreach (People element in weekChores)
+                    {
+                        #region Counts
+                        int count0 = 0;
+                        int count1 = 0;
+                        int count2 = 0;
+                        int count3 = 0;
+                        int count4 = 0;
+                        int count5 = 0;
+                        int count6 = 0;
+                        int count7 = 0;
+                        int count8 = 0;
+                        int count9 = 0;
+                        int count10 = 0;
+                        int count11 = 0;
+                        int count12 = 0;
+                        int count13 = 0;
+                        int count14 = 0;
+                        int count15 = 0;
+                        int count16 = 0;
+                        #endregion
+
+                        for (int i = 0; i < element.Chores.Count; i++)
+                        {
+                            if(element.Chores[i] == 0)
+                            {
+                                count0++;
+
+                            }
+
+                            else if (element.Chores[i] == 1)
+                            {
+                                count1++;
+
+                            }
+
+                            else if (element.Chores[i] == 2)
+                            {
+                                count2++;
+
+                            }
+
+                            else if (element.Chores[i] == 3)
+                            {
+                                count3++;
+
+                            }
+
+                            else if (element.Chores[i] == 4)
+                            {
+                                count4++;
+
+                            }
+
+                            else if (element.Chores[i] == 5)
+                            {
+                                count5++;
+
+                            }
+
+                            else if (element.Chores[i] == 6)
+                            {
+                                count6++;
+
+                            }
+
+                            else if (element.Chores[i] == 7)
+                            {
+                                count7++;
+
+                            }
+
+                            else if (element.Chores[i] == 8)
+                            {
+                                count8++;
+
+                            }
+
+                            else if (element.Chores[i] == 9)
+                            {
+                                count9++;
+
+                            }
+
+                            else if (element.Chores[i] == 10)
+                            {
+                                count10++;
+
+                            }
+
+                            else if (element.Chores[i] == 11)
+                            {
+                                count11++;
+
+                            }
+
+                            else if (element.Chores[i] == 12)
+                            {
+                                count12++;
+
+                            }
+
+                            else if (element.Chores[i] == 13)
+                            {
+                                count13++;
+
+                            }
+
+                            else if (element.Chores[i] == 14)
+                            {
+                                count14++;
+
+                            }
+
+                            else if (element.Chores[i] == 15)
+                            {
+                                count15++;
+
+                            }
+
+                            else if (element.Chores[i] == 16)
+                            {
+                                count16++;
+
+                            }
+
+                        }
+
+                        if((count0 > 1) || (count1 > 1) || (count2 > 1) || (count3 > 1) || (count4 > 1) || (count5 > 1) || (count6 > 1)
+                             || (count7 > 1) || (count8 > 1) || (count9 > 1) || (count10 > 1) || (count11 > 1) || (count12 > 1) || (count13 > 1)
+                              || (count14 > 1) || (count15 > 1) || (count16 > 1))
+                        {                            
+                            repeat++;
+
+                        }
+
+                        else
+                        {
+                            y = false;
+
+                        }
 
                     }
-                    
+
+                    // If there are repeats erase added chores and repeat
+                    if (repeat > 0)
+                    {
+                        foreach (People element in weekChores)
+                        {
+                            element.Chores.RemoveAt(element.Chores.Count() - 1);
+
+                        }
+                        RandomChore();
+                    }
+
+
+
                 }
+
+
             }
 
             // Clears the past chores that the members have had
             void Clear(List<People> person)
-            {
+            {               
                 for (int i = person.Count - 1; i > 0; i--)
                 {
-                    person.RemoveAt(i);
+                    person[i].Picked = false;
 
                 }
 
             }
 
+            // Gets all of the chores and puts them in each members list
+            void GetChores()
+            {
+                try
+                {
+                    read = new StreamReader("ChoresDone.txt");
+                    string line = "";
+
+                    while ((line = read.ReadLine()) != null)
+                    {
+                        foreach (People element in members)
+                        {
+                            if (element.Name == line)
+                            {
+                                string[] data = read.ReadLine().Split(',');
+
+                                for (int i = 0; i < data.Length - 1; i++)
+                                {
+                                    element.Chores.Add(int.Parse(data[i]));
+
+                                }
+                            }
+
+                        }
+
+                    }
+
+
+
+
+                }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine("AssignChore : Error reading to file: " + e.Message);
+
+                }
+
+                finally
+                {
+                    if (read != null)
+                    {
+                        read.Close();
+
+                    }
+
+                }
+            }
+
+            // Adds chore to a members list
+            void AssignChore(People member, int random)
+            {
+                member.Chores.Add(random);              
+
+            }
+
+            // Saves/Writes all of the chores out to the txt document
             void Save(List<People> people)
             {                
                 try

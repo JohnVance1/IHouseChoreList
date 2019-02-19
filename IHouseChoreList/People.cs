@@ -21,9 +21,7 @@ namespace IHouseChoreList
         private string strChore;
         private string weeksChore;
         private bool picked;
-        private StreamWriter write = null;
         private StreamReader read = null;
-        private int result;
         #endregion
 
 
@@ -89,13 +87,14 @@ namespace IHouseChoreList
         {
             try
             {
+
                 read = new StreamReader("ChoresDone.txt");
 
-                for(int i = 0; i <= person.Chores.Count - 1; i++)
-                {
-                    person.Chores.RemoveAt(i);
+                //for(int i = 0; i <= person.Chores.Count - 1; i++)
+                //{
+                //    person.Chores.RemoveAt(i);
 
-                }
+                //}
 
                 string line = null;
                 //string info = null;
@@ -107,8 +106,7 @@ namespace IHouseChoreList
 
                         for (int i = 0; i < data.Length - 1; i++)
                         {                                                          
-                            person.Chores.Add(int.Parse(data[i]));
-                            
+                            person.Chores.Add(int.Parse(data[i]));                            
 
                         }
 
@@ -143,85 +141,35 @@ namespace IHouseChoreList
         /// <param name="member">The member that is having a chore assigned</param>
         /// <param name="rand">The number of the chore that they are getting</param>
         /// <returns></returns>
-        public void AssignChore(People member, int rand)
+        
+
+      /*  public void GetChore(People member)
         {
-            try
+            read = new StreamReader("ChoresDone.txt");
+            string line = null;
+            int[] adding;
+            //member.ChoresDone(member);
+            //string info = null;
+            while ((line = read.ReadLine()) != null)
             {
-                read = new StreamReader("ChoresDone.txt");
-                string line = null;
-                int[] adding;
-                //member.ChoresDone(member);
-                //string info = null;
-                while ((line = read.ReadLine()) != null)
-                {                                            
-                    if (line == member.Name)
+                if (line == member.Name)
+                {
+                    string[] data = read.ReadLine().Split(',');
+
+                    for (int i = 0; i < data.Length - 1; i++)
                     {
-                        string[] data = read.ReadLine().Split(',');
-                    
-                        for (int i = 0; i < data.Length - 1; i++)
-                        {
-                            member.Chores.Add(int.Parse(data[i]));
-                                                                
-                        }
-                        member.Chores.Add(rand);
-                    
+                        member.Chores.Add(int.Parse(data[i]));
+
                     }
 
-                    
 
                 }
 
-            }
 
-            catch(Exception e)
-            {
-                Console.WriteLine("AssignChore : Error reading to file: " + e.Message);
 
             }
 
-            finally
-            {
-                if(read != null)
-                {
-                    read.Close();
-
-                }
-
-            }
-
-            #region Comments
-            //if (!member.Chores.Contains(rand))
-            //{
-            //    member.Chores.Add(rand);
-            //    member.Picked = true;
-
-            //    string line = read.ReadLine();
-            //    while (line != null)
-            //    {
-            //        if (read.ReadLine() == member.Name)
-            //        {
-            //            write.WriteLine(read.ReadLine() + rand);
-
-            //        }
-            //        else
-            //        {
-            //            return null;
-
-            //        }
-            //    }
-
-            //    return member.Name + " has the chore : " + rand;
-
-            //}
-
-            //else
-            //{
-            //    return null;
-
-            //}
-            #endregion
-
-        }
+        } */
 
         #region More Comments
         //public void Save(List<People> people)
@@ -264,6 +212,7 @@ namespace IHouseChoreList
         //}
         #endregion
 
+        #region ToString Method
         public override string ToString()
         {
             for(int i = 0; i < chores.Count; i++)
@@ -275,6 +224,8 @@ namespace IHouseChoreList
             return name + " \n" + strChore;
 
         }
+        #endregion
+
         #endregion
 
 
